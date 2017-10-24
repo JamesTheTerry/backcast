@@ -12,6 +12,11 @@ var SearchView = Backbone.View.extend({
       if (e.keyCode === 13) {
         this.handleSearch();
       }
+    },
+    'keyup input': function(e) {
+      // create a debounced version of this.handleSearch, binding the collection to it
+      // then invoke immediately
+      _.debounce(this.handleSearch.bind(this), 500)();
     }
   },
 
