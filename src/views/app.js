@@ -4,6 +4,7 @@ var AppView = Backbone.View.extend({
 
   initialize: function() {
     this.videos = new Videos(exampleVideoData);
+    this.videos.search('puppies');
     this.render();
   },
 
@@ -12,9 +13,10 @@ var AppView = Backbone.View.extend({
     this.$el.html(this.template());
 
     new SearchView({
-      el: this.$('.search')
+      el: this.$('.search'),
+      collection: this.videos
     }).render();
-    
+
     new VideoListView({
       el: this.$('.list'),
       collection: this.videos

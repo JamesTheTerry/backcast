@@ -13,15 +13,17 @@ var Videos = Backbone.Collection.extend({
         'key': window.YOUTUBE_API_KEY,
         'maxResults': '5',
         'part': 'snippet',
-        'q' : query,
+        'q': query,
         'type': 'video',
-        'videoEmbeddable' : 'true'
+        'videoEmbeddable': 'true'
       }
     });
   },
 
   parse: function(response) {
     console.log('response', response);
+    // this.set(response);
+    return response.items;
   }
 
 });
