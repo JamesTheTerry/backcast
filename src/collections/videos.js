@@ -4,6 +4,7 @@ var Videos = Backbone.Collection.extend({
 
   initialize: function() {
     this.url = 'https://www.googleapis.com/youtube/v3/search';
+    this.autoplay = false;
   },
 
   // learn how to search on Tuesday
@@ -24,6 +25,14 @@ var Videos = Backbone.Collection.extend({
     console.log('response', response);
     // this.set(response);
     return response.items;
+  },
+
+  toggleAutoplay: function() {
+    console.log('we made it to toggleAutoplay');
+    this.forEach(function(model, index) {
+      model.set('autoplay', (model.get('autoplay') + 1) % 2);
+    });
+    this.autoplay = !this.autoplay;
   }
 
 });

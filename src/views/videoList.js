@@ -4,10 +4,18 @@ var VideoListView = Backbone.View.extend({
     this.collection.on('sync', this.render, this);
   },
 
+  events: {
+    'click #autoplay': 'handleAutoplay'
+  },
+
   render: function() {
     this.$el.children().detach();
     this.$el.html(this.template());
-    this.$el.children().children().detach(); // we're clearing the children in a very weird way
+    if (this.collection.autoplay) {
+      $('#autoplay').text('Turn autoplay off');
+    } else {
+      $('#autoplay').text('Turn autoplay on');
+    }
     this.$el.children().append(
       this.collection.map(this.renderVideoListEntry));
     return this;
@@ -17,6 +25,11 @@ var VideoListView = Backbone.View.extend({
 
   renderVideoListEntry: function(video) {
     return new VideoListEntryView({model: video}).render().$el;
+  },
+
+  handleAutoplay: function() {
+    this.collection.toggleAutoplay();
+    this.render();
   }
 
 });
